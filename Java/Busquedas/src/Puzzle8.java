@@ -39,7 +39,7 @@ public class Puzzle8 {
                 hijo3 = estadoActual.substring(0, 4) + estadoActual.charAt(7) + estadoActual.substring(5,7) + estadoActual.charAt(4) + estadoActual.substring(8);
                 hijo4 = estadoActual.substring(0,3) + estadoActual.charAt(4) + estadoActual.charAt(3) + estadoActual.substring(5);
                 imprimirHijos(hijo2, hijo1, hijo3, hijo4);
-                hijos = new String[]{hijo2, hijo1 , hijo3, hijo4};
+                hijos = new String[]{hijo2, hijo1 , hijo3, hijo4}; // Orden distinto para llegar al resultado esperado en menos iteraciones 
             }
             case 5 -> { // Genera 3
                 hijo1 = estadoActual.substring(0, 2) + estadoActual.charAt(5) + estadoActual.substring(3, 5) + estadoActual.charAt(2) + estadoActual.substring(6);
