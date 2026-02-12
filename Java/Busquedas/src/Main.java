@@ -18,7 +18,7 @@ public class Main {
         for (String sucesor : sucesores) {
             if (sucesor.equals(Puzzle8.estadoFinal)) {
                 System.out.println("¡Estado final alcanzado!");
-                Puzzle8.imprimirHijos(sucesor);
+                Puzzle8.imprimirHijos(new String[]{sucesor});
                 System.exit(0);
             } else {
                 System.out.println("Estado sucesor: " + sucesor);
