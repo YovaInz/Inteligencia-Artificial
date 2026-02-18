@@ -11,7 +11,8 @@ public class Puzzle {
 
         ArbolDeBusqueda arbol = new ArbolDeBusqueda(new Nodo(estadoInicial));
         // n = arbol.busquedaPrimeroAnchura(estadoObjetivo);
-        n = arbol.busquedaEnProfundidad(estadoObjetivo);
+        // n = arbol.busquedaEnProfundidad(estadoObjetivo);
+        n = arbol.busquedaPorCostoUniforme(estadoObjetivo);
 
         Puzzle8.imprimirHijos(new String[]{n.estado});
         System.out.println("Nivel: " + n.nivel);
@@ -22,12 +23,13 @@ public class Puzzle {
 
     static void imprimirRuta(Nodo nodo) {
         if (nodo.padre != null) {
-            Puzzle8.imprimirHijos(new String[]{nodo.padre.estado});
+            // Puzzle8.imprimirHijos(new String[]{nodo.padre.estado});
             imprimirRuta(nodo.padre);
         } else {
             System.out.println("Estado inicial: " + nodo.estado);
         }
         System.out.println("Nivel: " + nodo.nivel);
+        System.out.println("Costo total: " + nodo.costoTotal);
         Puzzle8.imprimirHijos(new String[]{nodo.estado});
     }
     
