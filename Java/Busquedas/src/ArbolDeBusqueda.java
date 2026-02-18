@@ -25,7 +25,6 @@ public class ArbolDeBusqueda {
             if(actual.estado.equals(estadoObjetivo)) {
                 return actual;
             } else {
-                visitados.add(actual.estado);
                 List<Nodo> sucesores = actual.getSucesores();
                 for (Nodo sucesor : sucesores) {
                     if (!visitados.contains(sucesor.estado)) {
@@ -51,7 +50,6 @@ public class ArbolDeBusqueda {
             if(actual.estado.equals(estadoObjetivo)) {
                 return actual;
             } else {
-                visitados.add(actual.estado);
                 List<Nodo> sucesores = actual.getSucesores();
                 for (Nodo sucesor : sucesores) {
                     if (!visitados.contains(sucesor.estado)) {

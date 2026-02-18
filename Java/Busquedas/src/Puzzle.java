@@ -21,16 +21,38 @@ public class Puzzle {
 
     }
 
-    static void imprimirRuta(Nodo nodo) {
-        if (nodo.padre != null) {
-            // Puzzle8.imprimirHijos(new String[]{nodo.padre.estado});
-            imprimirRuta(nodo.padre);
-        } else {
-            System.out.println("Estado inicial: " + nodo.estado);
+    // static void imprimirRuta(Nodo nodo) {
+    //     if (nodo.padre != null) {
+    //         // Puzzle8.imprimirHijos(new String[]{nodo.padre.estado});
+    //         imprimirRuta(nodo.padre);
+    //     } else {
+    //         System.out.println("Estado inicial: " + nodo.estado);
+    //     }
+    //     System.out.println("Nivel: " + nodo.nivel);
+    //     System.out.println("Costo total: " + nodo.costoTotal);
+    //     Puzzle8.imprimirHijos(new String[]{nodo.estado});
+    // }
+
+    static void imprimirRuta(Nodo nodo) { // Se cambió por un método que imprima mediante ciclos para evitar que la recursividad desborde la pila de llamadas
+        java.util.Stack<Nodo> pila = new java.util.Stack<>();
+        Nodo actual = nodo;
+
+        while (actual != null) {
+            pila.push(actual);
+            actual = actual.padre;
         }
-        System.out.println("Nivel: " + nodo.nivel);
-        System.out.println("Costo total: " + nodo.costoTotal);
-        Puzzle8.imprimirHijos(new String[]{nodo.estado});
+
+        while (!pila.isEmpty()) {
+            Nodo paso = pila.pop();
+            
+            if (paso.padre == null) {
+                System.out.println("Estado inicial: " + paso.estado);
+            }
+            
+            System.out.println("Nivel: " + paso.nivel);
+            System.out.println("Costo total: " + paso.costoTotal);
+            Puzzle8.imprimirHijos(new String[]{paso.estado});
+        }
     }
     
 }
