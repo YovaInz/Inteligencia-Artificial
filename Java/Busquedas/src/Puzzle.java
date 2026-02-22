@@ -15,7 +15,8 @@ public class Puzzle {
         ArbolDeBusqueda arbol = new ArbolDeBusqueda(new Nodo(estadoInicial));
         // n = arbol.busquedaPrimeroAnchura(estadoObjetivo);
         // n = arbol.busquedaEnProfundidad(estadoObjetivo);
-        n = arbol.busquedaPorCostoUniforme(estadoObjetivo);
+        // n = arbol.busquedaPorCostoUniforme(estadoObjetivo);
+        n = arbol.busquedaPorCostoUniformeHeuristica(estadoObjetivo);
 
         Puzzle8.imprimirHijos(new String[]{n.estado});
         System.out.println("Nivel: " + n.nivel);

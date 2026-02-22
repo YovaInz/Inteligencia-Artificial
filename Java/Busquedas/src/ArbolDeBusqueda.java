@@ -61,17 +61,6 @@ public class ArbolDeBusqueda {
         }
         return null;
     }
-    // TODO: Implementar heuristica para busqueda por costo uniforme.
-    // Example code del profesor:
-    // private int heuristicOne(String currentState, String goalSate) {
-    //     int difference = 0;
-    //     for (int i = 0; i < currentState.length(); i += 1)
-    //         if (currentState.charAt(i) != goalSate.charAt(i))
-    //             difference += 1;
-    //     return difference;
-    // }
-    // 
-    // La heuristica puede ser libre, por lo que se me ocurre usar las 4 esquinas del puzzle.
 
     Nodo busquedaPorCostoUniforme(String estadoObjetivo) {
         if (raiz == null) 
@@ -103,4 +92,65 @@ public class ArbolDeBusqueda {
         return null;
     }
 
+    // TODO: Implementar heuristica para busqueda por costo uniforme.
+    // Example code del profesor:
+    private int heuristicOne(String currentState, String goalSate) {
+        int difference = 0;
+        for (int i = 0; i < currentState.length(); i += 1)
+            if (currentState.charAt(i) != goalSate.charAt(i))
+                difference += 1;
+        return difference;
+    }
+    
+    // La heuristica puede ser libre, por lo que se me ocurre usar las 4 esquinas del puzzle.
+
+    private static int heuristic(String currentState, String goalState) {
+        int difference = 0;
+        if (currentState.charAt(0) != goalState.charAt(0))
+            difference += 1;
+        if (currentState.charAt(2) != goalState.charAt(2))
+            difference += 1;
+        if (currentState.charAt(6) != goalState.charAt(6))
+            difference += 1;
+        if (currentState.charAt(8) != goalState.charAt(8))
+            difference += 1;
+        return difference;
+    }
+    // "012345678"
+    // |0|1|2|
+    // |3|4|5|
+    // |6|7|8|
+
+    Nodo busquedaPorCostoUniformeHeuristica(String estadoObjetivo) {
+        if (raiz == null) 
+            return null;
+
+        NodoComparadorPorPrioridad comparador = new NodoComparadorPorPrioridad();
+        PriorityQueue<Nodo> cola = new PriorityQueue<>(10, comparador);
+        HashSet<String> visitados = new HashSet<>();
+        Nodo actual;
+        cola.add(raiz);
+        while(!cola.isEmpty()) {
+            actual = cola.poll();
+            if(actual.estado.equals(estadoObjetivo)) {
+                return actual;
+            } else {
+                if (visitados.contains(actual.estado))
+                    continue;
+                
+                visitados.add(actual.estado);
+                List<Nodo> sucesores = actual.getSucesores();
+                for (Nodo sucesor : sucesores) {
+                    if (!visitados.contains(sucesor.estado)) {
+                        sucesor.setCostoTotal(
+                            actual.getCostoTotal() 
+                            + heuristic(sucesor.estado, actual.estado)
+                        );
+                        cola.add(sucesor);
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }
