@@ -1,11 +1,14 @@
 public class Puzzle {
     public static void main(String[] args) {
         Nodo n;
-        String estadoInicial = "64215378 ";
+        String estadoInicial = "5674 8321";
         System.err.println("\nEstado Inicial: " + estadoInicial);
         Puzzle8.imprimirHijos(new String[]{estadoInicial});
-
-        String estadoObjetivo = "12345678 ";
+        // TODO: El estado objetivo "12345678 " Genera un error nullPointException
+        // (el arbol de busqueda regresa null), Puede que sea desbordamiento de memoria o simplemente no encuentra el estado objetivo
+        // Pasa con los 3 metodos de busqueda que tenemos implementados actualmente.
+        // String estadoObjetivo = "12345678 ";
+        String estadoObjetivo = "1238 4765";
         System.err.println("Estado Objetivo: " + estadoObjetivo);
         Puzzle8.imprimirHijos(new String[]{estadoObjetivo});
 

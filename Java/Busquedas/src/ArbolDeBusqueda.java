@@ -61,6 +61,17 @@ public class ArbolDeBusqueda {
         }
         return null;
     }
+    // TODO: Implementar heuristica para busqueda por costo uniforme.
+    // Example code del profesor:
+    // private int heuristicOne(String currentState, String goalSate) {
+    //     int difference = 0;
+    //     for (int i = 0; i < currentState.length(); i += 1)
+    //         if (currentState.charAt(i) != goalSate.charAt(i))
+    //             difference += 1;
+    //     return difference;
+    // }
+    // 
+    // La heuristica puede ser libre, por lo que se me ocurre usar las 4 esquinas del puzzle.
 
     Nodo busquedaPorCostoUniforme(String estadoObjetivo) {
         if (raiz == null) 
