@@ -92,9 +92,42 @@ public class ArbolDeBusqueda {
         return null;
     }
 
-    // TODO: Implementar heuristica para busqueda por costo uniforme.
+    Nodo busquedaPorCostoUniformeHeuristica(String estadoObjetivo) {
+        if (raiz == null) 
+            return null;
+
+        NodoComparadorPorPrioridad comparador = new NodoComparadorPorPrioridad();
+        PriorityQueue<Nodo> cola = new PriorityQueue<>(10, comparador);
+        HashSet<String> visitados = new HashSet<>();
+        Nodo actual;
+        cola.add(raiz);
+        while(!cola.isEmpty()) {
+            actual = cola.poll();
+            if(actual.estado.equals(estadoObjetivo)) {
+                return actual;
+            } else {
+                if (visitados.contains(actual.estado))
+                    continue;
+                
+                visitados.add(actual.estado);
+                List<Nodo> sucesores = actual.getSucesores();
+                for (Nodo sucesor : sucesores) {
+                    if (!visitados.contains(sucesor.estado)) {
+                        sucesor.setCostoTotal(
+                            actual.getCostoTotal() + 0 +
+                            heuristicThree(sucesor.estado, estadoObjetivo)
+                        );
+                        cola.add(sucesor);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+        // TODO: Implementar heuristica para busqueda por costo uniforme.
     // Example code del profesor:
-    private int heuristicOne(String currentState, String goalSate) {
+    private int heuristicOne(String currentState, String goalSate) { // Hamming distance
         int difference = 0;
         for (int i = 0; i < currentState.length(); i += 1)
             if (currentState.charAt(i) != goalSate.charAt(i))
@@ -121,36 +154,28 @@ public class ArbolDeBusqueda {
     // |3|4|5|
     // |6|7|8|
 
-    Nodo busquedaPorCostoUniformeHeuristica(String estadoObjetivo) {
-        if (raiz == null) 
-            return null;
+    private int heuristicTwo(String currentState, String goalSate) { // Manhattan distance
+        int difference = 0;
+        for (int i = 0; i < currentState.length(); i += 1)
+            for (int j = 0; j < goalSate.length(); j += 1)
+                if (currentState.charAt(i) == goalSate.charAt(j))
+                    difference = difference + ((Math.abs(i % 3 - j % 3)) + Math.abs(i / 3 + j / 3));
+        return difference;
+    }
 
-        NodoComparadorPorPrioridad comparador = new NodoComparadorPorPrioridad();
-        PriorityQueue<Nodo> cola = new PriorityQueue<>(10, comparador);
-        HashSet<String> visitados = new HashSet<>();
-        Nodo actual;
-        cola.add(raiz);
-        while(!cola.isEmpty()) {
-            actual = cola.poll();
-            if(actual.estado.equals(estadoObjetivo)) {
-                return actual;
-            } else {
-                if (visitados.contains(actual.estado))
-                    continue;
-                
-                visitados.add(actual.estado);
-                List<Nodo> sucesores = actual.getSucesores();
-                for (Nodo sucesor : sucesores) {
-                    if (!visitados.contains(sucesor.estado)) {
-                        sucesor.setCostoTotal(
-                            actual.getCostoTotal() 
-                            + heuristic(sucesor.estado, actual.estado)
-                        );
-                        cola.add(sucesor);
-                    }
-                }
+    private int heuristicThree(String currentState, String goalSate) { // Conflicto Lineal + Manhattan distance
+        int difference = 0;
+        int manhattanDistance = 0;
+        for (int i = 0; i < currentState.length(); i += 1)
+        {
+            for (int j = 0; j < goalSate.length(); j += 1)
+            {
+                if (currentState.charAt(i) == goalSate.charAt(j))
+                    manhattanDistance = (Math.abs(i % 3 - j % 3)) + Math.abs(i / 3 + j / 3);
             }
         }
-        return null;
+        difference = difference + 2 * manhattanDistance - 1;
+        return difference;
     }
+    
 }

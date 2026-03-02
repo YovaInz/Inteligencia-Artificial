@@ -72,7 +72,7 @@ public class Nodo {
 
 
     public void setCostoTotal(int costo) {
-        this.costoTotal += costo;
+        this.costoTotal = costo;
     }
 
 }
