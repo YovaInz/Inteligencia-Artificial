@@ -22,6 +22,7 @@ public class Puzzle {
         System.out.println("Nivel: " + n.nivel);
         System.out.println("Ruta desde el estado inicial hasta estado objetivo:");
         imprimirRuta(n);
+        System.out.println("Estados visitados: " + ArbolDeBusqueda.visitados.size());
 
     }
 

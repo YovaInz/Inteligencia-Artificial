@@ -7,6 +7,7 @@ import java.util.Stack;
 
 public class ArbolDeBusqueda {
     Nodo raiz = new Nodo("1238 4765"); // Estado inicial del puzzle8
+    public static HashSet<String> visitados = new HashSet<>();
 
     public ArbolDeBusqueda(Nodo raiz) {
         this.raiz = raiz;
@@ -16,7 +17,7 @@ public class ArbolDeBusqueda {
         if (raiz == null) 
             return null;
 
-        HashSet<String> visitados = new HashSet<>();
+
         Queue<Nodo> cola = new LinkedList<>();
         Nodo actual;
         cola.add(raiz);
@@ -28,6 +29,7 @@ public class ArbolDeBusqueda {
                 List<Nodo> sucesores = actual.getSucesores();
                 for (Nodo sucesor : sucesores) {
                     if (!visitados.contains(sucesor.estado)) {
+                        sucesor.setCostoTotal(actual.getCostoTotal() + Character.getNumericValue(sucesor.estado.charAt(actual.estado.indexOf(' '))));
                         cola.add(sucesor);
                         visitados.add(sucesor.estado);
                     }
@@ -41,7 +43,7 @@ public class ArbolDeBusqueda {
         if (raiz == null) 
             return null;
 
-        HashSet<String> visitados = new HashSet<>();
+
         Stack<Nodo> pila = new Stack<>();
         Nodo actual;
         pila.add(raiz);
@@ -53,6 +55,7 @@ public class ArbolDeBusqueda {
                 List<Nodo> sucesores = actual.getSucesores();
                 for (Nodo sucesor : sucesores) {
                     if (!visitados.contains(sucesor.estado)) {
+                        sucesor.setCostoTotal(actual.getCostoTotal() + Character.getNumericValue(sucesor.estado.charAt(actual.estado.indexOf(' '))));
                         pila.add(sucesor);
                         visitados.add(sucesor.estado);
                     }
@@ -68,7 +71,7 @@ public class ArbolDeBusqueda {
 
         NodoComparadorPorPrioridad comparador = new NodoComparadorPorPrioridad();
         PriorityQueue<Nodo> cola = new PriorityQueue<>(10, comparador);
-        HashSet<String> visitados = new HashSet<>();
+
         Nodo actual;
         cola.add(raiz);
         while(!cola.isEmpty()) {
@@ -98,7 +101,7 @@ public class ArbolDeBusqueda {
 
         NodoComparadorPorPrioridad comparador = new NodoComparadorPorPrioridad();
         PriorityQueue<Nodo> cola = new PriorityQueue<>(10, comparador);
-        HashSet<String> visitados = new HashSet<>();
+
         Nodo actual;
         cola.add(raiz);
         while(!cola.isEmpty()) {
@@ -115,7 +118,7 @@ public class ArbolDeBusqueda {
                     if (!visitados.contains(sucesor.estado)) {
                         sucesor.setCostoTotal(
                             actual.getCostoTotal() + 0 +
-                            heuristicThree(sucesor.estado, estadoObjetivo)
+                            heuristicTwo(sucesor.estado, estadoObjetivo)
                         );
                         cola.add(sucesor);
                     }
